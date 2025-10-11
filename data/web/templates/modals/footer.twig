@@ -26,7 +26,7 @@
           <div class="mb-4">
             <div class="input-group">
               <span class="input-group-text" id="yubi-addon"><img alt="Yubicon Icon" src="/img/yubi.ico"></span>
-              <input type="text" name="otp_token" class="form-control" placeholder="Touch Yubikey" aria-describedby="yubi-addon">
+              <input type="text" id="yubi_otp_token" name="otp_token" class="form-control" placeholder="Touch Yubikey" autocomplete="one-time-code" aria-describedby="yubi-addon">
               <input type="hidden" name="tfa_method" value="yubi_otp">
             </div>
           </div>
@@ -101,7 +101,7 @@
             </li>
             <li>
               <p>{{ lang.tfa.confirm_totp_token }}:</p>
-              <p><input type="number" style="width:33%" class="form-control" name="totp_confirm_token" autocomplete="off" required></p>
+              <p><input type="text" id="totp_confirm_token" style="width:33%" class="form-control" name="totp_confirm_token" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" required></p>
               <p><button class="btn btn-sm d-block d-sm-inline btn-success" type="submit" name="set_tfa">{{ lang.tfa.confirm }}</button></p>
             </li>
           </ol>
@@ -139,8 +139,8 @@
         <h3 class="modal-title">{{ lang.tfa.tfa }}</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      
-      
+
+
       <div class="modal-body p-0 pt-4">
         <ul class="nav nav-tabs px-1" id="tabContent">
             {% if pending_tfa_authmechs["webauthn"] is defined and pending_tfa_authmechs["u2f"] is not defined %}
@@ -224,7 +224,7 @@
                           <div class="col-12">
                             <div class="input-group mt-4">
                               <span class="input-group-text" id="yubi-addon"><img alt="Yubicon Icon" src="/img/yubi.ico"></span>
-                              <input type="text" name="token" class="form-control" autocomplete="off" placeholder="Touch Yubikey" aria-describedby="yubi-addon">
+                              <input type="text" id="yubi_token" name="token" class="form-control" autocomplete="one-time-code" placeholder="Touch Yubikey" aria-describedby="yubi-addon">
                               <input type="hidden" name="tfa_method" value="yubi_otp">
                               <input type="hidden" name="id" id="yubi_selected_id" />
                             </div>
@@ -241,7 +241,7 @@
             <div role="tabpanel" class="tab-pane {% if pending_tfa_authmechs["totp"] %}active{% endif %}" id="tfa_tab_totp">
               <div class="card border-0" style="margin-bottom: 0px;">
                   <div class="card-body">
-                    <form role="form" method="post">        
+                    <form role="form" method="post">
                       <legend class="mt-2 mb-2">
                           <i class="bi bi-shield-fill-check"></i>
                           {{ lang.tfa.authenticators }}
@@ -263,7 +263,7 @@
                           <div class="col-12">
                             <div class="input-group mt-4">
                               <span class="input-group-text" id="tfa-addon"><i class="bi bi-shield-lock-fill"></i></span>
-                              <input type="number" min="000000" max="999999" name="token" class="form-control" placeholder="123456" autocomplete="one-time-code" aria-describedby="tfa-addon">
+                              <input type="text" id="totp_token" name="token" class="form-control" placeholder="123456" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" aria-describedby="tfa-addon">
                               <input type="hidden" name="tfa_method" value="totp">
                               <input type="hidden" name="id" id="totp_selected_id" /><br/>
                             </div>
